@@ -1,0 +1,179 @@
+{
+  "contractName": "ISpoortify",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_playlistId",
+          "type": "string"
+        }
+      ],
+      "name": "isPaid",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_playlistId\",\"type\":\"string\"}],\"name\":\"isPaid\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/interfaces/ISpoortify.sol\":\"ISpoortify\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1},\"remappings\":[]},\"sources\":{\"project:/contracts/interfaces/ISpoortify.sol\":{\"keccak256\":\"0x5c60133042d0762663fa691eeae388b729a8ac932469bd973b8bf9de3eb8203f\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4975dc9f3929765436bd1a064de0a6ef42c2565ecc9ac891d0db7db9fd2188d4\",\"dweb:/ipfs/Qmd4EQGumKCdhysYxKFMsNCJH5YqXEXDqdVezWqQtnkg6z\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\n\r\ninterface ISpoortify {\r\n    function isPaid(string memory _playlistId) external view returns (bool);\r\n}",
+  "sourcePath": "E:\\Startup\\Blockchain\\Zoardev\\apps\\spoortify\\contracts\\interfaces\\ISpoortify.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/interfaces/ISpoortify.sol",
+    "exportedSymbols": {
+      "ISpoortify": [
+        403
+      ]
+    },
+    "id": 404,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 395,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:23:4"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "ISpoortify",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 403,
+        "linearizedBaseContracts": [
+          403
+        ],
+        "name": "ISpoortify",
+        "nameLocation": "70:10:4",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "d40c6aaa",
+            "id": 402,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "isPaid",
+            "nameLocation": "97:6:4",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 398,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 397,
+                  "mutability": "mutable",
+                  "name": "_playlistId",
+                  "nameLocation": "118:11:4",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 402,
+                  "src": "104:25:4",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 396,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "104:6:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "103:27:4"
+            },
+            "returnParameters": {
+              "id": 401,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 400,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 402,
+                  "src": "154:4:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 399,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "154:4:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "153:6:4"
+            },
+            "scope": 403,
+            "src": "88:72:4",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 404,
+        "src": "60:103:4",
+        "usedErrors": []
+      }
+    ],
+    "src": "33:130:4"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.8",
+  "updatedAt": "2022-11-20T11:09:40.064Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
