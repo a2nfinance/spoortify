@@ -15,19 +15,26 @@ import {
     useDisclosure,
     BoxProps,
     FlexProps,
-    useColorMode, Button, useBreakpointValue,
+    useColorMode, Button, useBreakpointValue, InputLeftElement, Input, InputGroup,
 } from '@chakra-ui/react';
 import {
     FiHome,
-    FiTrendingUp,
-    FiCompass,
-    FiStar,
     FiSettings,
     FiMenu,
 } from 'react-icons/fi';
+import {
+    MdAccountBalanceWallet
+} from 'react-icons/md';
+import {
+    RiPlayListFill
+} from "react-icons/ri";
+
+import {
+    IoIosMusicalNotes
+} from "react-icons/io";
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
-import {MoonIcon, SunIcon} from "@chakra-ui/icons";
+import {MoonIcon, SearchIcon, SunIcon} from "@chakra-ui/icons";
 import {
     HAS_ALE,
     IS_ALE,
@@ -40,6 +47,7 @@ import {useAppDispatch, useAppSelector} from "../../controller/hooks";
 import {useRouter} from "next/router";
 import LatestPlaylists from "../playlist/LatestPlaylists";
 import NewArtists from "../artist/NewArtists";
+import {useAddress} from "../../hooks/useAddress";
 
 
 interface LinkItemProps {
@@ -48,14 +56,11 @@ interface LinkItemProps {
     url?: string
 }
 const LinkItems: Array<LinkItemProps> = [
-    { name: 'Home', icon: FiHome },
-    { name: 'Trending', icon: FiTrendingUp },
-    { name: 'Explore', icon: FiCompass },
-    { name: 'Favourites', icon: FiStar },
-    { name: 'Settings', icon: FiSettings },
-    { name: 'Balance', icon: FiSettings, url: "/account/balance" },
-    { name: 'New Playlist', icon: FiSettings, url: "/account/create-playlist" },
-    { name: 'New Song', icon: FiSettings, url: "/account/create-song" },
+    { name: 'Discover', icon: FiHome, url: "/" },
+    { name: 'Balance', icon: MdAccountBalanceWallet, url: "/account/balance" },
+    { name: 'New Playlist', icon: RiPlayListFill, url: "/account/create-playlist" },
+    { name: 'New Song', icon: IoIosMusicalNotes, url: "/account/create-song" },
+    { name: 'My Profile', icon: FiSettings, url: "/account/profile" },
 ];
 
 export default function SidebarWithHeader({
@@ -68,7 +73,7 @@ export default function SidebarWithHeader({
 
 
     return (
-        <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+        <Box minH="100vh" bg={useColorModeValue('gray.100', 'linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(2,2,112,1) 100%);')}>
             <SidebarContent
                 onClose={() => onClose}
                 display={{ base: 'none', md: 'block' }}
@@ -88,11 +93,11 @@ export default function SidebarWithHeader({
             {/* mobilenav */}
             <MobileNav onOpen={onOpen} />
             <Box ml={{ base: 0, md: 60 }} p="4">
-                <HStack alignItems={"initial"} justifyContent={"space-between"}>
+                <HStack alignItems={"initial"}>
                     <Box width={useBreakpointValue({base: "80%", sm: "100%", md: "100%", lg: "60%", xl: "60%", "2xl": "70%"})}>
                         {children}
                     </Box>
-                    <VStack>
+                    <VStack width={useBreakpointValue({base: "20%", sm: "100%", md: "100%", lg: "40%", xl: "40%", "2xl": "30%"})}>
                         <LatestPlaylists />
                         <NewArtists />
                     </VStack>
@@ -126,7 +131,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
             </Flex>
             {LinkItems.map((link) => (
                 <NavItem key={link.name} icon={link.icon} url={link.url} router={router}>
-                    {link.name}
+                   {link.name}
                 </NavItem>
             ))}
         </Box>
@@ -164,7 +169,7 @@ const NavItem = ({ icon, url, router, children, ...rest }: NavItemProps) => {
                         as={icon}
                     />
                 )}
-                {children}
+                <Text fontWeight={500} letterSpacing={"1px"}>{children}</Text>
             </Flex>
         </Link>
     );
@@ -174,6 +179,7 @@ interface MobileProps extends FlexProps {
     onOpen: () => void;
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+    const { getShortAddress } = useAddress();
     const { colorMode, toggleColorMode } = useColorMode();
     const {account, isConnected, isAle} = useAppSelector(state => state.network)
     const dispatch = useAppDispatch();
@@ -230,26 +236,36 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             px={{ base: 4, md: 4 }}
             height="20"
             alignItems="center"
-            bg={useColorModeValue('white', 'gray.900')}
-            borderBottomWidth="1px"
+            // bg={useColorModeValue('white', 'gray.900')}
+            // borderBottomWidth="1px"
             borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
-            justifyContent={{ base: 'space-between', md: 'flex-end' }}
+            justifyContent={{ base: 'space-between', md: 'flex-end', lg: "space-between" }}
             {...rest}>
-            <IconButton
-                display={{ base: 'flex', md: 'none' }}
-                onClick={onOpen}
-                variant="outline"
-                aria-label="open menu"
-                icon={<FiMenu />}
-            />
+            <Flex>
+                <InputGroup maxW={"300px"} display={{base: "none", lg: "flex"}}>
+                    <InputLeftElement
+                        pointerEvents='none'
+                        children={<SearchIcon color='gray.300' />}
+                    />
+                    <Input type='tel' placeholder='Playlist' />
+                </InputGroup>
+                <IconButton
+                    display={{ base: 'flex', md: 'none' }}
+                    onClick={onOpen}
+                    variant="outline"
+                    aria-label="open menu"
+                    icon={<FiMenu />}
+                />
 
-            <Text
-                display={{ base: 'flex', md: 'none' }}
-                fontSize="2xl"
-                fontFamily="monospace"
-                fontWeight="bold">
-                Logo
-            </Text>
+                <Text
+                    display={{ base: 'flex', md: 'none' }}
+                    fontSize="2xl"
+                    fontFamily="monospace"
+                    fontWeight="bold">
+                    Logo
+                </Text>
+            </Flex>
+
 
             <HStack spacing={{ base: '0', md: '6' }}>
                 <Button onClick={toggleColorMode} fontSize={"sm"} mr={1}>
@@ -264,52 +280,16 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                     color={'gray.200'}
                     bg={'purple.400'}
                     gap={2}
+                    leftIcon={isConnected ? <MdAccountBalanceWallet fontSize={"sm"} /> : <></>}
                     _hover={{
                         bg: 'purple.500',
                     }}>
                     {/*{ isConnected ? <Image src={"/networks/metamask.svg"} width={"20px"} /> : <></>}*/}
-                    { isConnected ? `${account.slice(0,3).concat("...").concat(account.slice(account.length - 4, account.length -1))}`: "Connect Wallet" }
+                    { isConnected ? `${getShortAddress(account)}`: "Connect Wallet" }
                 </Button>
-                {/*<Flex alignItems={'center'}>*/}
-                {/*    <Menu>*/}
-                {/*        <MenuButton*/}
-                {/*            py={2}*/}
-                {/*            transition="all 0.3s"*/}
-                {/*            _focus={{ boxShadow: 'none' }}>*/}
-                {/*            <HStack>*/}
-                {/*                <Avatar*/}
-                {/*                    size={'sm'}*/}
-                {/*                    src={*/}
-                {/*                        'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'*/}
-                {/*                    }*/}
-                {/*                />*/}
-                {/*                <VStack*/}
-                {/*                    display={{ base: 'none', md: 'flex' }}*/}
-                {/*                    alignItems="flex-start"*/}
-                {/*                    spacing="1px"*/}
-                {/*                    ml="2">*/}
-                {/*                    <Text fontSize="sm">Justina Clark</Text>*/}
-                {/*                    <Text fontSize="xs" color="gray.600">*/}
-                {/*                        Admin*/}
-                {/*                    </Text>*/}
-                {/*                </VStack>*/}
-                {/*                <Box display={{ base: 'none', md: 'flex' }}>*/}
-                {/*                    <FiChevronDown />*/}
-                {/*                </Box>*/}
-                {/*            </HStack>*/}
-                {/*        </MenuButton>*/}
-                {/*        <MenuList*/}
-                {/*            bg={useColorModeValue('white', 'gray.900')}*/}
-                {/*            borderColor={useColorModeValue('gray.200', 'gray.700')}>*/}
-                {/*            <MenuItem>Profile</MenuItem>*/}
-                {/*            <MenuItem>Settings</MenuItem>*/}
-                {/*            <MenuItem>Billing</MenuItem>*/}
-                {/*            <MenuDivider />*/}
-                {/*            <MenuItem>Sign out</MenuItem>*/}
-                {/*        </MenuList>*/}
-                {/*    </Menu>*/}
-                {/*</Flex>*/}
+
             </HStack>
+
         </Flex>
     );
 };

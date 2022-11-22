@@ -7,6 +7,7 @@ import { createStandaloneToast } from '@chakra-ui/toast'
 import Head from 'next/head'
 import SidebarWithHeader from "../components/layout/SideBar";
 import 'react-h5-audio-player/lib/styles.css';
+import "/public/css/audio-player.css";
 const { ToastContainer } = createStandaloneToast()
 function MyApp({ Component, pageProps }) {
 

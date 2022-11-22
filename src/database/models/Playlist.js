@@ -34,6 +34,11 @@ let playlist = new Schema({
         type: Date,
         required: true,
         default: Date.now
+    },
+    countView: {
+        type: Number,
+        required: true,
+        default: 0
     }
 });
 let Playlist = mongoose.model('Playlist', playlist);

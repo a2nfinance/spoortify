@@ -1,63 +1,9 @@
-.volume {
-    width:100px;
-}
+.rhap_container {
+    /*background-color: #171923;*/
+    opacity: 0.9;
+    background: linear-gradient(90deg, #171923 0%, rgba(2,2,112,1) 50%, #171923 100%);
 
-.soundDiv {
-    display: flex;
-    gap:15px;
-    font-size: 20px;
-    align-items:center;
-    width: 300px;
-    justify-content: end;
 }
-
-.pauseplay {
-    font-size: 35px;
-    transition: transform 0.2s;
-}
-
-.pauseplay:hover {
-    transform: scale(1.1);
-}
-
-.forback {
-    font-size: 16px;
-    transition: transform 0.2s;
-}
-
-.forback:hover {
-    transform: scale(1.4);
-}
-
-.buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 5px;
-}
-
-.progress {
-    width:400px;
-}
-
-.progress .ant-slider-track {
-    background-color: #A7A7A7;
-}
-
-.progress .ant-slider-handle {
-    background-color: transparent;
-}
-
-.cover {
-    height: 80px;
-}
-
-.songTitle {
-    font-size: 16px;
-    color: white;
-}
-
-.songAlbum {
-    font-size: 12px;
+.rhap_time {
+    color: #718096;
 }

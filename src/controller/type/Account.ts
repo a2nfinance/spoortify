@@ -4,5 +4,7 @@ export type Account = {
     symbol: string,
     address: string,
     shortAddress: string,
-    chainId: number
+    chainId: number,
+    depositAmount: number,
+    withdrawAmount: number
 }

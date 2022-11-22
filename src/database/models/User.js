@@ -14,6 +14,10 @@ let user = new Schema({
         type: String,
         required: false
     },
+    cover: {
+        type: String,
+        required: false
+    },
     status: {
         type: Number,
         required: true
@@ -22,6 +26,11 @@ let user = new Schema({
         type: Date,
         required: true,
         default: Date.now
+    },
+    countView: {
+        type: Number,
+        required: true,
+        default: 0
     }
 });
 let User = mongoose.model('User', user);

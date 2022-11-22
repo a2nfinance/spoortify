@@ -4,10 +4,13 @@ import {deposit} from "../core/contract";
 import {AppState} from "../store";
 
 // @ts-ignore
-export const depositThunk = createAsyncThunk("user/deposit", async (amount: number, {getState}) => {
+export const depositThunk = createAsyncThunk("user/deposit", async ({}, {getState}) => {
     // @ts-ignore
     let state: AppState = getState();
-    let response = await deposit(amount, state.network.account);
+    if (state.account.depositAmount <= 0) {
+        return {success: false};
+    }
+    let response = await deposit(state.account.depositAmount, state.network.account);
 
     return response;
 })

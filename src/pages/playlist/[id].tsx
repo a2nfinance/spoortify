@@ -15,7 +15,10 @@ export default function Album({id}) {
     }, [])
     return (<Box maxW={"full"}>
                 <Playlist />
-                <AudioPlayer />
+                <Box px={"20px"}>
+                    <AudioPlayer />
+                </Box>
+
     </Box>)
 }
 

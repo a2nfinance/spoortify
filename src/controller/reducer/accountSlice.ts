@@ -4,7 +4,6 @@ import {
     PayloadAction
 } from "@reduxjs/toolkit";
 import {Account} from "src/controller/type/Account";
-import {getBalance} from "../core/contract";
 import {getBalanceThunk} from "../thunk/getBalanceThunk";
 // import {connectEVMNetworkThunk} from "../thunk/connectEVMNetworkThunk";
 
@@ -16,15 +15,17 @@ const initialState: Account = {
     symbol: "",
     address: "",
     shortAddress: "",
-    chainId: 0
+    chainId: 0,
+    withdrawAmount: 0,
+    depositAmount: 0
 }
 
 export const accountSlice = createSlice({
     name: 'account',
     initialState,
     reducers: {
-        updateAttribute: (state, action: PayloadAction<{key: string, value: any}> ) => {
-            state[action.payload.key] = action.payload.value;
+        updateAttribute: (state, action: PayloadAction<{att: string, value: any}> ) => {
+            state[action.payload.att] = action.payload.value;
         },
         disconnectAccount: (state, action: PayloadAction<{}> ) => {
             state.balance = "";
@@ -40,6 +41,7 @@ export const accountSlice = createSlice({
             state.balance = action.payload.toString();
 
         })
+
     }
 })
 

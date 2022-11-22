@@ -6,6 +6,8 @@ import {
 import {PlaylistForm} from "../type/Playlist";
 import {getCurrentPlaylistThunk} from "../thunk/getCurrentPlaylistThunk";
 import {getLatestPlaylistsThunk} from "../thunk/getLatestPlaylistsThunk";
+import {getMyPlaylistThunk} from "../thunk/getMyPlaylistThunk";
+import {getAllPlaylistThunk} from "../thunk/getAllPlaylistThunk";
 
 type PlaylistState = {
     coverImage: File,
@@ -58,6 +60,16 @@ export const playlistSlice = createSlice({
 
         })
         builder.addCase(getLatestPlaylistsThunk.fulfilled, (state: PlaylistState, action) => {
+
+            state.latestPlaylists = action.payload;
+
+        })
+        builder.addCase(getMyPlaylistThunk.fulfilled, (state: PlaylistState, action) => {
+
+            state.myPlaylists = action.payload;
+
+        })
+        builder.addCase(getAllPlaylistThunk.fulfilled, (state: PlaylistState, action) => {
 
             state.latestPlaylists = action.payload;
 

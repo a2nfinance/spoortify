@@ -7,14 +7,15 @@ McpFunc.Contract.setProvider(process.env.rpcAddress);
 
 const contractAddress = process.env.contractAddress;
 import {ethers} from "ethers";
+import {connect} from "./wallet";
 
 const Contract = new McpFunc.Contract(
     abi,
     contractAddress
 );
 
-
 export const deposit = async (amount: number, account: string) => {
+    await connect();
     const approveAmount = new Big(amount).times('1e18').toString();
     const response = await Contract.methods.deposit().sendToBlock({
         from: account,
@@ -41,6 +42,7 @@ export const getBalance = async (account: string) => {
 
 
 export const withdraw = async (amount: number, account: string) => {
+    await connect();
     const approveAmount = new Big(amount).times('1e18').toString();
     const response = await Contract.methods.withdraw(approveAmount).sendToBlock({
         from: account,
@@ -55,6 +57,7 @@ export const withdraw = async (amount: number, account: string) => {
     return response;
 }
 export const buy = async (artist: string, playlistId: string, amount: number, account: string) => {
+    await connect();
     const approveAmount = new Big(amount).times('1e18').toString();
     const response = await Contract.methods.buy(artist, playlistId, approveAmount).sendToBlock({
         from: account,

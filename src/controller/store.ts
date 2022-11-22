@@ -5,6 +5,7 @@ import accountReducer from "src/controller/reducer/accountSlice";
 import networkReducer from "src/controller/reducer/networkSlice";
 import playlistReducer from "src/controller/reducer/playlistSlice";
 import songReducer from "src/controller/reducer/songSlice";
+import artistReducer from "src/controller/reducer/artistSlice";
 
 const persistConfig = {
     key: 'network',
@@ -17,7 +18,8 @@ export function makeStore() {
             account: accountReducer,
             network: network,
             playlist: playlistReducer,
-            song: songReducer
+            song: songReducer,
+            artist: artistReducer
         },
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware({
