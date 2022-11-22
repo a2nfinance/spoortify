@@ -1,21 +1,13 @@
 import mongoose from 'mongoose';
 let Schema = mongoose.Schema;
 
-let user = new Schema({
+let userPaidPlaylist = new Schema({
     userAddress: {
         type: String,
         required: true,
     },
-    name: {
+    playlistId: {
         type: String,
-        required: true
-    },
-    description: {
-        type: String,
-        required: false
-    },
-    status: {
-        type: Number,
         required: true
     },
     createdAt: {
@@ -24,6 +16,6 @@ let user = new Schema({
         default: Date.now
     }
 });
-let User = mongoose.model('User', user);
+let UserPaidPlaylist = mongoose.model('UserPaidPlaylist', userPaidPlaylist);
 mongoose.models = {};
-export default User;
+export default UserPaidPlaylist;

@@ -15,7 +15,7 @@ import {
     useDisclosure,
     BoxProps,
     FlexProps,
-    useColorMode, Button,
+    useColorMode, Button, useBreakpointValue,
 } from '@chakra-ui/react';
 import {
     FiHome,
@@ -38,6 +38,8 @@ import {
 } from "../../controller/reducer/networkSlice";
 import {useAppDispatch, useAppSelector} from "../../controller/hooks";
 import {useRouter} from "next/router";
+import LatestPlaylists from "../playlist/LatestPlaylists";
+import NewArtists from "../artist/NewArtists";
 
 
 interface LinkItemProps {
@@ -52,6 +54,8 @@ const LinkItems: Array<LinkItemProps> = [
     { name: 'Favourites', icon: FiStar },
     { name: 'Settings', icon: FiSettings },
     { name: 'Balance', icon: FiSettings, url: "/account/balance" },
+    { name: 'New Playlist', icon: FiSettings, url: "/account/create-playlist" },
+    { name: 'New Song', icon: FiSettings, url: "/account/create-song" },
 ];
 
 export default function SidebarWithHeader({
@@ -84,7 +88,15 @@ export default function SidebarWithHeader({
             {/* mobilenav */}
             <MobileNav onOpen={onOpen} />
             <Box ml={{ base: 0, md: 60 }} p="4">
-                {children}
+                <HStack alignItems={"initial"} justifyContent={"space-between"}>
+                    <Box width={useBreakpointValue({base: "80%", sm: "100%", md: "100%", lg: "60%", xl: "60%", "2xl": "70%"})}>
+                        {children}
+                    </Box>
+                    <VStack>
+                        <LatestPlaylists />
+                        <NewArtists />
+                    </VStack>
+                </HStack>
             </Box>
         </Box>
     );
@@ -240,7 +252,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             </Text>
 
             <HStack spacing={{ base: '0', md: '6' }}>
-                <Button onClick={toggleColorMode} fontSize={"sm"}>
+                <Button onClick={toggleColorMode} fontSize={"sm"} mr={1}>
                     {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                 </Button>
 
@@ -256,7 +268,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                         bg: 'purple.500',
                     }}>
                     {/*{ isConnected ? <Image src={"/networks/metamask.svg"} width={"20px"} /> : <></>}*/}
-                    { isConnected ? `${account}`: "Connect Wallet" }
+                    { isConnected ? `${account.slice(0,3).concat("...").concat(account.slice(account.length - 4, account.length -1))}`: "Connect Wallet" }
                 </Button>
                 {/*<Flex alignItems={'center'}>*/}
                 {/*    <Menu>*/}

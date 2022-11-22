@@ -14,25 +14,22 @@ let song = new Schema({
         type: String,
         required: true
     },
-    isPaidToListen: {
-        type: Boolean,
-        required: false
-    },
-    freeVersionURL: {
+    songURL: {
         type: String,
         required: true
-    },
-    fullVersionURL: {
-        type: String,
-        required: false
     },
     playlistId: {
-        type: Number,
+        type: String,
         required: true
-    }
+    },
     status: {
         type: Number,
         required: true
+    },
+    createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now
     }
 });
 let Song = mongoose.model('Song', song);

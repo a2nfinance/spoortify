@@ -3,6 +3,8 @@ import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import accountReducer from "src/controller/reducer/accountSlice";
 import networkReducer from "src/controller/reducer/networkSlice";
+import playlistReducer from "src/controller/reducer/playlistSlice";
+import songReducer from "src/controller/reducer/songSlice";
 
 const persistConfig = {
     key: 'network',
@@ -13,7 +15,9 @@ export function makeStore() {
     return configureStore({
         reducer: {
             account: accountReducer,
-            network: network
+            network: network,
+            playlist: playlistReducer,
+            song: songReducer
         },
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware({

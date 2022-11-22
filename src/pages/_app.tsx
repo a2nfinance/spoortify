@@ -6,6 +6,7 @@ import {theme} from "../theme/theme";
 import { createStandaloneToast } from '@chakra-ui/toast'
 import Head from 'next/head'
 import SidebarWithHeader from "../components/layout/SideBar";
+import 'react-h5-audio-player/lib/styles.css';
 const { ToastContainer } = createStandaloneToast()
 function MyApp({ Component, pageProps }) {
 
@@ -21,13 +22,14 @@ function MyApp({ Component, pageProps }) {
                         </Head>
                         <Container maxW={"container.3xl"} p={0}>
                             <SidebarWithHeader>
-                                <Component {...pageProps} />
+                                        <Component {...pageProps} />
                             </SidebarWithHeader>
 
                             {/*<NetworkSelectionPopup />*/}
                             {/*<Footer />*/}
                         </Container>
                         <ToastContainer />
+
                     </Box>
 
 

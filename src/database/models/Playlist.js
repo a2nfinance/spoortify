@@ -18,9 +18,22 @@ let playlist = new Schema({
         type: String,
         required: true
     },
+    isPaid: {
+        type: Boolean,
+        required: false
+    },
+    price: {
+        type: Number,
+        required: false
+    },
     status: {
         type: Number,
         required: true
+    },
+    createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now
     }
 });
 let Playlist = mongoose.model('Playlist', playlist);

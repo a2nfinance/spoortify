@@ -54,6 +54,20 @@ export const withdraw = async (amount: number, account: string) => {
 
     return response;
 }
+export const buy = async (artist: string, playlistId: string, amount: number, account: string) => {
+    const approveAmount = new Big(amount).times('1e18').toString();
+    const response = await Contract.methods.buy(artist, playlistId, approveAmount).sendToBlock({
+        from: account,
+        amount: new Big('0').toString()
+    });
+    if (response.success) {
+        console.log('transaction success: ', response);
+    } else {
+        console.log('transaction failed: ', response);
+    }
+
+    return response;
+}
 
 
 export const isPaid = async (playlistId: string, account: string) => {

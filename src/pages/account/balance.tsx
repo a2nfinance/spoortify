@@ -18,7 +18,7 @@ export default function Balance() {
         dispatch(withdrawThunk(0.3));
     }, [])
     return (
-        <Container maxW={"container.lg"}>
+        <Container maxW={"full"}>
             <Button colorScheme={"purple"} onClick={() => doDeposit()}>Withdraw 0.5</Button>
             <Text>
                 Balance: {balance}
