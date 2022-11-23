@@ -1,6 +1,5 @@
 import {Box, SimpleGrid} from "@chakra-ui/react";
 import PlaylistGridItem from "./PlaylistGridItem";
-import {useAppSelector} from "../../controller/hooks";
 import {useRouter} from "next/router";
 
 export default function PlaylistGrid({playlists}) {
