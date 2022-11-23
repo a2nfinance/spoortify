@@ -19,7 +19,7 @@ export default function LatestPlaylists() {
     }, [])
     return (
         <Card backgroundColor={"transparent"} shadow={0} width={"full"}>
-            <CardHeader>
+            <CardHeader pt={0}>
                 <Heading size='md'>Top Playlists</Heading>
             </CardHeader>
 
@@ -28,7 +28,10 @@ export default function LatestPlaylists() {
                     {
                         latestPlaylists.map((playlist, index) => {
                             return (
-                                <Flex gap='4' key={`playlist-${playlist._id}`}
+                                <Flex gap='4'
+                                      py={1}
+                                      _hover={{backgroundColor: "navy"}}
+                                      key={`playlist-${playlist._id}`}
                                       onClick={() => router.push(`/playlist/${playlist._id}`)}
                                       cursor={"pointer"}
                                       justifyContent={"space-between"}>

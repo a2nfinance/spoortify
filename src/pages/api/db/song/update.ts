@@ -6,19 +6,26 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
         // need to validate
         const {
+            _id,
             userAddress,
             name,
             cover,
             songURL,
-            playlistId
+            playlistId,
+            description,
+            status
         } = req.body;
-        if (name && userAddress && cover && songURL && playlistId) {
-            // Create new one and update
-            // Need to create new only
+        if (_id && name && userAddress && cover && songURL && playlistId) {
             try {
-                let song = new Song(req.body);
-                let savedSong = await song.save();
-                // Create new product
+                let savedSong = await Song.findOneAndUpdate({_id: _id}, {
+                    userAddress: userAddress,
+                    name: name,
+                    cover: cover,
+                    songURL: songURL,
+                    playlistId: playlistId,
+                    description: description,
+                    status: status
+                });
                 return res.status(200).send(savedSong);
             } catch (error) {
                 console.log(error)

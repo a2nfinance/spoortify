@@ -1,19 +1,27 @@
 import connect from 'src/database/connect';
 import { NextApiRequest, NextApiResponse } from 'next';
 import Song from "src/database/models/Song";
+import Playlist from "src/database/models/Playlist";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
         const {
-            playlistId,
+            userAddress,
         } = req.body;
-
-        if (playlistId) {
+        if (userAddress) {
             try {
-                let songs = await Song.find({
-                    playlistId: playlistId
+                let playlists = await Playlist.find({
+                    userAddress: userAddress
                 })
-                return res.status(200).send(songs);
+                if (playlists && playlists.length) {
+
+                    let playlistIds = playlists.map(p => p._id);
+
+                    let songs = await Song.find({playlistId: {$in: playlistIds}})
+
+                    return res.status(200).send(songs);
+                }
+                return res.status(200).send([]);
             } catch (error) {
                 return res.status(500).send(error.message);
             }

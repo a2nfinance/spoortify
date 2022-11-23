@@ -10,6 +10,10 @@ let song = new Schema({
         type: String,
         required: true
     },
+    description: {
+        type: String,
+        required: false
+    },
     cover: {
         type: String,
         required: true

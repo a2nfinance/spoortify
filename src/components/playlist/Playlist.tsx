@@ -1,6 +1,6 @@
 import {Card, CardBody, CardHeader} from "@chakra-ui/card";
 import {
-    Avatar,
+    Avatar, Badge,
     Box, Button,
     Flex,
     Heading, Icon,
@@ -10,7 +10,7 @@ import {
     ListItem, OrderedList,
     Stack,
     StackDivider,
-    Text
+    Text, useBreakpointValue
 } from "@chakra-ui/react";
 import {MdCheckCircle} from "react-icons/md";
 import {useAppDispatch, useAppSelector} from "../../controller/hooks";
@@ -26,7 +26,7 @@ import {AiOutlinePlayCircle} from "react-icons/ai";
 export default function Playlist() {
     const router = useRouter();
     const {getShortAddress} = useAddress();
-    const {currentPlaylist} = useAppSelector(state => state.playlist);
+    const {currentPlaylist, isPaidByUser} = useAppSelector(state => state.playlist);
     const {songsByPlaylist, audioPlayer} = useAppSelector(state => state.song);
     const dispatch = useAppDispatch();
     const {resolveLink} = useIPFS();
@@ -41,28 +41,31 @@ export default function Playlist() {
         <Card backgroundColor={"transparent"} shadow={"none"}>
             <CardHeader>
                 <Flex gap='4'>
-                    <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
-                        <Image width={"150px"} src={resolveLink(currentPlaylist.cover)} />
+                    <Flex flex='1' gap='4' alignItems={"initial"} flexWrap='wrap'>
+                        <Image width={useBreakpointValue({base: "100%", xl: "150px"})}  src={resolveLink(currentPlaylist.cover)} />
                         <Box>
-                            <Heading size='sm'>{currentPlaylist.name}</Heading>
+                            <Text fontSize={"xs"} fontWeight={"semibold"} mb={1}>PLAYLIST</Text>
+                            <Heading size={useBreakpointValue({base: "md", xl: "xl"})}>{currentPlaylist.name}</Heading>
                             <Link
                                 onClick={() => router.push(`/artist/${currentPlaylist._id}`)}
                                 fontSize={"xs"} color={"gray.500"}
                                 letterSpacing={"1px"}>
                                 {getShortAddress(currentPlaylist.userAddress)}
                             </Link>
-                            <Text fontStyle={"italic"} fontSize={"xs"} letterSpacing={"1px"}>
+                            <Text fontSize={"sm"} maxW={"350px"}>
                                 {currentPlaylist.description}
                             </Text>
 
                             <Text
                                 fontWeight={"semibold"}
                                 fontSize={"xs"}
-                                fontStyle={"italic"}
-                                letterSpacing={"1px"}>
+                            >
                                 {currentPlaylist.isPaid ? `Price: ${currentPlaylist.price} CCN` : ""}
                             </Text>
-                            <Button rounded={0} mt={2} variant={"outline"} colorScheme={"green"} size={"xs"} onClick={() => handleBuyNow()}>Buy Now</Button>
+                            {
+                                isPaidByUser ? <Badge colorScheme={"green"}>Paid</Badge> :  <Button rounded={0} mt={2} variant={"outline"} colorScheme={"green"} size={"xs"} onClick={() => handleBuyNow()}>Buy Now</Button>
+                            }
+
                         </Box>
                     </Flex>
                 </Flex>
@@ -81,11 +84,17 @@ export default function Playlist() {
                             return (
                                 <ListItem
                                     cursor={"pointer"}
+                                    alignItems={"center"}
                                     opacity={(audioPlayer.current == index) ? 1 : 0.6}
                                     display={"flex"} onClick={() => handleSongClick(index)}
                                 >
-                                    <Icon as={AiOutlinePlayCircle} alignSelf={'center'} />
-                                    <Text ml={1} fontWeight={400} letterSpacing={"1px"}>{song.name}</Text>
+                                    {/*<Icon as={AiOutlinePlayCircle} alignSelf={'center'} />*/}
+                                    <Image src={resolveLink(song.cover)} width={"40px"} />
+                                    <Box ml={2}>
+                                        <Text ml={1} fontWeight={600}>{song.name}</Text>
+                                        <Text ml={1} fontSize={"xs"} color={"gray.500"} >{song.description}</Text>
+                                    </Box>
+
                                 </ListItem>
                             )
                         })

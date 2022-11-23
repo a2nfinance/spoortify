@@ -9,6 +9,7 @@ import {getAllArtistThunk} from "../thunk/getAllArtistThunk";
 import {getCurrentArtistThunk} from "../thunk/getCurrentArtistThunk";
 import {PlaylistForm} from "../type/Playlist";
 import {getPlaylistByArtistThunk} from "../thunk/getPlaylistByArtistThunk";
+import {getMyProfileThunk} from "../thunk/getMyProfileThunk";
 
 type ArtistState = {
     coverImage: File,
@@ -51,6 +52,13 @@ export const artistSlice = createSlice({
         setCoverImage: (state, action: PayloadAction<{coverImage: File}> ) => {
             state.coverImage = action.payload.coverImage;
         },
+        setArtistFormByCurrentArtist: (state, action: PayloadAction<{}> ) => {
+            console.log(state.currentArtist);
+            if (state.currentArtist._id) {
+                state.artistForm = state.currentArtist;
+            }
+
+        },
 
     },
     extraReducers(builder: ActionReducerMapBuilder<any>) {
@@ -66,10 +74,13 @@ export const artistSlice = createSlice({
 
         })
         builder.addCase(getCurrentArtistThunk.fulfilled, (state: ArtistState, action) => {
-
             state.currentArtist = action.payload;
-
         })
+
+        builder.addCase(getMyProfileThunk.fulfilled, (state: ArtistState, action) => {
+            state.currentArtist = action.payload;
+        })
+
         builder.addCase(getPlaylistByArtistThunk.fulfilled, (state: ArtistState, action) => {
 
             state.myPlaylists = action.payload;
@@ -78,5 +89,5 @@ export const artistSlice = createSlice({
     }
 })
 
-export const { updateFormAttribute, setCoverImage } = artistSlice.actions;
+export const { updateFormAttribute, setCoverImage, setArtistFormByCurrentArtist } = artistSlice.actions;
 export default artistSlice.reducer;

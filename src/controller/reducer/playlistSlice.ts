@@ -8,17 +8,21 @@ import {getCurrentPlaylistThunk} from "../thunk/getCurrentPlaylistThunk";
 import {getLatestPlaylistsThunk} from "../thunk/getLatestPlaylistsThunk";
 import {getMyPlaylistThunk} from "../thunk/getMyPlaylistThunk";
 import {getAllPlaylistThunk} from "../thunk/getAllPlaylistThunk";
+import {checkIsPaidThunk} from "../thunk/checkIsPaidThunk";
 
 type PlaylistState = {
+    openEditModal: boolean,
     coverImage: File,
     playlistForm: PlaylistForm,
     myPlaylists: PlaylistForm[],
     latestPlaylists: PlaylistForm[],
-    currentPlaylist: PlaylistForm
+    currentPlaylist: PlaylistForm,
+    isPaidByUser: boolean
 }
 
 
 const initialState: PlaylistState = {
+    openEditModal: false,
     coverImage: null,
     playlistForm: {
         userAddress: "",
@@ -39,7 +43,8 @@ const initialState: PlaylistState = {
         isPaid: false,
         price: 0,
         status: 1
-    }
+    },
+    isPaidByUser: false
 }
 
 export const playlistSlice = createSlice({
@@ -51,6 +56,12 @@ export const playlistSlice = createSlice({
         },
         setCoverImage: (state, action: PayloadAction<{coverImage: File}> ) => {
             state.coverImage = action.payload.coverImage;
+        },
+        setOpenEditModal:  (state, action: PayloadAction<{isOpen: boolean}> ) => {
+            state.openEditModal = action.payload.isOpen;
+        },
+        setPlaylistFormData: (state, action: PayloadAction<{playlistForm: PlaylistForm}> ) => {
+            state.playlistForm = action.payload.playlistForm;
         },
     },
     extraReducers(builder: ActionReducerMapBuilder<any>) {
@@ -74,8 +85,14 @@ export const playlistSlice = createSlice({
             state.latestPlaylists = action.payload;
 
         })
+
+        builder.addCase(checkIsPaidThunk.fulfilled, (state: PlaylistState, action) => {
+
+            state.isPaidByUser = action.payload;
+
+        })
     }
 })
 
-export const { updateFormAttribute, setCoverImage } = playlistSlice.actions;
+export const { updateFormAttribute, setCoverImage, setOpenEditModal, setPlaylistFormData } = playlistSlice.actions;
 export default playlistSlice.reducer;

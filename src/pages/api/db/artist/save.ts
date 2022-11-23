@@ -7,12 +7,28 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const {
             userAddress,
             name,
+            description,
+            status,
+            cover
         } = req.body;
         if (name && userAddress) {
             try {
-                let user = new User(req.body);
-                let savedUser = await user.save();
-                return res.status(200).send(savedUser);
+                if (req.body._id) {
+                    let savedUser = await User.findOneAndUpdate({_id: req.body._id}, {
+                        userAddress: userAddress,
+                        name: name,
+                        description: description,
+                        status: status,
+                        cover: cover
+                    });
+                    return res.status(200).send(savedUser);
+                } else {
+                    let user = new User(req.body);
+                    let savedUser = await user.save();
+                    return res.status(200).send(savedUser);
+                }
+
+
             } catch (error) {
                 console.log(error)
                 return res.status(500).send(error.message);

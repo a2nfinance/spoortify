@@ -6,36 +6,38 @@ import {errorToastContent, successToastContent} from "../core/toastContents";
 
 
 // @ts-ignore
-export const createProfileThunk = createAsyncThunk("artist/create-profile", async ({}, {getState}) => {
+export const updatePlaylistThunk = createAsyncThunk("user/update-playlist", async ({}, {getState}) => {
     // @ts-ignore
     let state: AppState = getState();
     try {
-        let formData = state.artist.artistForm;
+        let formData = state.playlist.playlistForm;
         let cover = formData.cover;
         // upload cover
-        if (state.artist.coverImage) {
-            let response = await pinFileToIPFS(state.artist.coverImage);
-            cover = response.data.Hash;
+        if (state.playlist.coverImage) {
+            let response = await pinFileToIPFS(state.playlist.coverImage);
+            cover = response.data.hash;
         }
 
         // save DB
 
-        fetch(`/api/db/artist/save`, {
+        fetch(`/api/db/playlist/update`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 _id: formData._id,
-                userAddress: state.network.account,
+                userAddress: formData.userAddress,
                 name: formData.name,
                 description: formData.description,
+                isPaid: formData.isPaid,
+                price: formData.price,
                 cover: cover,
                 status: formData.status
             })
         });
         successToastContent(
-            `Update profile success`,
+            `Update playlist success`,
             ``,
         )
         return true;

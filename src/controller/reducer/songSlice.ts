@@ -5,8 +5,10 @@ import {
 } from "@reduxjs/toolkit";
 import {SongForm} from "../type/Song";
 import {getSongsByPlaylistThunk} from "../thunk/getSongsByPlaylistThunk";
+import {getMySongsThunk} from "../thunk/getMySongsThunk";
 
 type SongState = {
+    openEditModal: boolean,
     coverImage: File,
     songFile: File,
     songForm: SongForm,
@@ -22,11 +24,13 @@ type SongState = {
 
 
 const initialState: SongState = {
+    openEditModal: false,
     coverImage: null,
     songFile: null,
     songForm: {
         userAddress: "",
         name: "",
+        description: "",
         cover: "",
         songURL: "",
         playlistId: "",
@@ -58,6 +62,12 @@ export const songSlice = createSlice({
         setAudioPlayerAttribute: (state, action: PayloadAction<{att: string, value: any}> ) => {
             state.audioPlayer[action.payload.att] = action.payload.value;
         },
+        setOpenEditModal:  (state, action: PayloadAction<{isOpen: boolean}> ) => {
+            state.openEditModal = action.payload.isOpen;
+        },
+        setSongFormData: (state, action: PayloadAction<{songForm: SongForm}> ) => {
+            state.songForm = action.payload.songForm;
+        },
     },
     extraReducers(builder: ActionReducerMapBuilder<any>) {
         builder.addCase(getSongsByPlaylistThunk.fulfilled, (state: SongState, action) => {
@@ -70,8 +80,13 @@ export const songSlice = createSlice({
             }
 
         })
+        builder.addCase(getMySongsThunk.fulfilled, (state: SongState, action) => {
+
+            state.mySongs = action.payload
+
+        })
     }
 })
 
-export const { updateFormAttribute, setCoverImage, setSong, setAudioPlayerAttribute } = songSlice.actions;
+export const { updateFormAttribute, setCoverImage, setSong, setAudioPlayerAttribute, setOpenEditModal, setSongFormData } = songSlice.actions;
 export default songSlice.reducer;

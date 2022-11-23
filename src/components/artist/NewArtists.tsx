@@ -28,10 +28,13 @@ export default function NewArtists() {
                     {
                         newArtists.map((artist, index) => {
                             return (
-                                <Flex gap='4' key={`playlist-${artist._id}`}
-                                      onClick={() => router.push(`/artist/${artist._id}`)}
-                                      cursor={"pointer"}
-                                      justifyContent={"space-between"}>
+                                <Flex
+                                    py={1}
+                                    _hover={{backgroundColor: "navy"}}
+                                    gap='4' key={`playlist-${artist._id}`}
+                                    onClick={() => router.push(`/artist/${artist._id}`)}
+                                    cursor={"pointer"}
+                                    justifyContent={"space-between"}>
                                     <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
                                         <Text fontWeight={500} fontSize={"sm"}>{index+1}.</Text>
                                         <Image rounded={"50%"} width={"60px"} src={resolveLink(artist.cover)} />

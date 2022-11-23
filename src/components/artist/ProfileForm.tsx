@@ -9,17 +9,19 @@ import {
     InputLeftElement,
     Textarea,
     VStack,
-    Icon
+    Icon, Image
 } from "@chakra-ui/react";
-import {useAppDispatch} from "../../controller/hooks";
+import {useAppDispatch, useAppSelector} from "../../controller/hooks";
 import {useCallback} from "react";
 import {createProfileThunk} from "../../controller/thunk/createProfileThunk";
 import {setCoverImage, updateFormAttribute} from "../../controller/reducer/artistSlice";
 import {FiFile} from "react-icons/fi";
+import {useIPFS} from "../../hooks/useIPFS";
 
 export default function ProfileForm() {
+    const {resolveLink} = useIPFS();
     const dispatch = useAppDispatch();
-
+    const {artistForm} = useAppSelector(state => state.artist)
     const handleSave = useCallback(() => {
         dispatch(createProfileThunk());
     }, [])
@@ -28,13 +30,10 @@ export default function ProfileForm() {
         dispatch(updateFormAttribute({att: att, value: e.target.value }));
     }, [])
 
-    const handleChangeIsPaid = useCallback((e) => {
-        dispatch(updateFormAttribute({att: "isPaid", value: e.target.checked }));
-    }, [])
-
     const handleChangeCover = useCallback((e: any) => {
         dispatch(setCoverImage({coverImage: e.target.files[0] }));
     }, [])
+
     return (
         <Box as={'form'} mt={10}>
             <VStack spacing={3}>
@@ -43,7 +42,7 @@ export default function ProfileForm() {
                     <InputGroup>
                         <Input
                             onChange={e => handleChangeAttribute("name", e)}
-                            // value={userForm.companyName}
+                            value={artistForm.name}
                         />
                     </InputGroup>
                 </FormControl>
@@ -53,12 +52,12 @@ export default function ProfileForm() {
                         <Textarea
                             maxLength={2000}
                             onChange={e => handleChangeAttribute("description", e)}
-                            // value={userForm.description}
+                            value={artistForm.description}
                         />
                     </InputGroup>
                 </FormControl>
                 <FormControl>
-                    <FormLabel>Cover</FormLabel>
+                    <FormLabel>Cover Image</FormLabel>
                     <InputGroup>
                         <InputLeftElement
                             pointerEvents="none"
@@ -66,6 +65,9 @@ export default function ProfileForm() {
                         />
                        <Input size={"md"} type={"file"} onChange={e => handleChangeCover(e)} />
                     </InputGroup>
+                    {
+                        artistForm.cover && <Image src={resolveLink(artistForm.cover)} mt={2} />
+                    }
                 </FormControl>
             </VStack>
             <HStack gap={4} mt={10}>

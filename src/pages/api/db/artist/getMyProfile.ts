@@ -1,19 +1,18 @@
 import connect from 'src/database/connect';
 import { NextApiRequest, NextApiResponse } from 'next';
-import Song from "src/database/models/Song";
+import User from "src/database/models/User";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
         const {
-            playlistId,
+            userAddress,
         } = req.body;
-
-        if (playlistId) {
+        if (userAddress) {
             try {
-                let songs = await Song.find({
-                    playlistId: playlistId
+                let user = await User.findOne({
+                    userAddress: userAddress
                 })
-                return res.status(200).send(songs);
+                return res.status(200).send(user);
             } catch (error) {
                 return res.status(500).send(error.message);
             }

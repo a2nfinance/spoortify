@@ -20,6 +20,7 @@ import {createSongThunk} from "../../controller/thunk/createSongThunk";
 export default function SongForm() {
     const dispatch = useAppDispatch();
     const {myPlaylists} = useAppSelector(state => state.playlist);
+    const {songForm} = useAppSelector(state => state.song);
     const handleSave = useCallback(() => {
         dispatch(createSongThunk());
     }, [])
@@ -46,7 +47,16 @@ export default function SongForm() {
                     <InputGroup>
                         <Input
                             onChange={e => handleChangeAttribute("name", e)}
-                            // value={userForm.companyName}
+                            value={songForm.name}
+                        />
+                    </InputGroup>
+                </FormControl>
+                <FormControl>
+                    <FormLabel>Description</FormLabel>
+                    <InputGroup>
+                        <Input
+                            onChange={e => handleChangeAttribute("description", e)}
+                            value={songForm.description}
                         />
                     </InputGroup>
                 </FormControl>
@@ -61,7 +71,7 @@ export default function SongForm() {
                     </InputGroup>
                 </FormControl>
                 <FormControl>
-                    <FormLabel>Song</FormLabel>
+                    <FormLabel>Music File (MP3)</FormLabel>
                     <InputGroup>
                         <InputLeftElement
                             pointerEvents="none"

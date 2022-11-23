@@ -5,13 +5,17 @@ import {getSongsByPlaylistThunk} from "../../controller/thunk/getSongsByPlaylist
 import {getCurrentPlaylistThunk} from "../../controller/thunk/getCurrentPlaylistThunk";
 import Playlist from "../../components/playlist/Playlist";
 import AudioPlayer from "../../components/audio/AudioPlayer";
+import {checkIsPaidThunk} from "../../controller/thunk/checkIsPaidThunk";
 
 export default function Album({id}) {
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        dispatch(getCurrentPlaylistThunk(id))
+    async function fetchData() {
+        await dispatch(getCurrentPlaylistThunk(id));
         dispatch(getSongsByPlaylistThunk(id));
+        dispatch(checkIsPaidThunk());
+    }
+    useEffect(() => {
+        fetchData()
     }, [])
     return (<Box maxW={"full"}>
                 <Playlist />

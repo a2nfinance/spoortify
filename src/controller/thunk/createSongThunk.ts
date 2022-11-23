@@ -27,7 +27,8 @@ export const createSongThunk = createAsyncThunk("user/create-song", async ({}, {
                 playlistId: formData.playlistId,
                 cover: uploadCoverResponse.data.Hash,
                 songURL: uploadSongResponse.data.Hash,
-                status: 1
+                status: 1,
+                description: formData.description
             })
         });
         successToastContent(

@@ -15,7 +15,7 @@ import {
     useDisclosure,
     BoxProps,
     FlexProps,
-    useColorMode, Button, useBreakpointValue, InputLeftElement, Input, InputGroup,
+    useColorMode, Button, useBreakpointValue, InputLeftElement, Input, InputGroup, Stack,
 } from '@chakra-ui/react';
 import {
     FiHome,
@@ -58,8 +58,8 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
     { name: 'Discover', icon: FiHome, url: "/" },
     { name: 'Balance', icon: MdAccountBalanceWallet, url: "/account/balance" },
-    { name: 'New Playlist', icon: RiPlayListFill, url: "/account/create-playlist" },
-    { name: 'New Song', icon: IoIosMusicalNotes, url: "/account/create-song" },
+    { name: 'My Playlists', icon: RiPlayListFill, url: "/account/playlists" },
+    { name: 'My Songs', icon: IoIosMusicalNotes, url: "/account/songs" },
     { name: 'My Profile', icon: FiSettings, url: "/account/profile" },
 ];
 
@@ -91,17 +91,17 @@ export default function SidebarWithHeader({
                 </DrawerContent>
             </Drawer>
             {/* mobilenav */}
-            <MobileNav onOpen={onOpen} />
+            <MobileNav onOpen={onOpen}  />
             <Box ml={{ base: 0, md: 60 }} p="4">
-                <HStack alignItems={"initial"}>
-                    <Box width={useBreakpointValue({base: "80%", sm: "100%", md: "100%", lg: "60%", xl: "60%", "2xl": "70%"})}>
+                <Stack alignItems={"initial"} direction={useBreakpointValue({base: "column", sm: "column", md: "column", lg: "column", xl: "row", "2xl": "row"})}>
+                    <Box width={useBreakpointValue({base: "100%", lg: "60%", xl: "60%", "2xl": "70%"})}>
                         {children}
                     </Box>
-                    <VStack width={useBreakpointValue({base: "20%", sm: "100%", md: "100%", lg: "40%", xl: "40%", "2xl": "30%"})}>
+                    <VStack width={useBreakpointValue({base: "100%", lg: "40%", xl: "40%", "2xl": "30%"})}>
                         <LatestPlaylists />
                         <NewArtists />
                     </VStack>
-                </HStack>
+                </Stack>
             </Box>
         </Box>
     );

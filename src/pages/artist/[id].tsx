@@ -1,13 +1,15 @@
-import {Box, Button, Flex, Heading, Image, Text} from "@chakra-ui/react";
+import {Box, Button, Flex, Heading, Image, Text, VStack} from "@chakra-ui/react";
 import {useAppDispatch, useAppSelector} from "../../controller/hooks";
 import {useEffect} from "react";
 import {getCurrentArtistThunk} from "../../controller/thunk/getCurrentArtistThunk";
 import {getPlaylistByArtistThunk} from "../../controller/thunk/getPlaylistByArtistThunk";
-import PlaylistsGrid from "../../components/playlist/PlaylistGrid";
+import PlaylistsGrid from "../../components/playlist/PlaylistsGrid";
 import {useIPFS} from "../../hooks/useIPFS";
+import {useAddress} from "../../hooks/useAddress";
 
 
 export default function Artist({id}) {
+    const {getShortAddress} = useAddress();
     const dispatch = useAppDispatch();
     const {resolveLink} = useIPFS();
     const { currentArtist, myPlaylists } = useAppSelector(state => state.artist);
@@ -17,18 +19,19 @@ export default function Artist({id}) {
     }, [])
     return (
         <Box maxW={"full"}>
-            <Flex gap='4'>
-                <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
+            <VStack gap='4' alignItems={"flex-start"}>
+                <Flex flex='1' px={2} gap='4' flexWrap='wrap'>
                     <Image width={"100px"} src={resolveLink(currentArtist.cover)} />
 
                     <Box>
-                        <Heading size='sm'>{currentArtist.name}</Heading>
-                        <Text>{currentArtist.description}</Text>
-                        <Text>{currentArtist.userAddress}</Text>
+                        <Heading size='xl'>{currentArtist.name}</Heading>
+                        <Text fontSize={"sm"} maxW={"400px"}>{currentArtist.description}</Text>
+                        <Text fontSize={"xs"} color={"gray.500"}>{getShortAddress(currentArtist.userAddress)}</Text>
                     </Box>
                 </Flex>
-            </Flex>
-            <PlaylistsGrid playlists={myPlaylists}/>
+                <PlaylistsGrid playlists={myPlaylists}/>
+            </VStack>
+
     </Box>)
 }
 

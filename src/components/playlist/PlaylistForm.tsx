@@ -11,7 +11,7 @@ import {
     VStack,
     Icon, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Switch
 } from "@chakra-ui/react";
-import {useAppDispatch} from "../../controller/hooks";
+import {useAppDispatch, useAppSelector} from "../../controller/hooks";
 import {useCallback} from "react";
 import {createPlaylistThunk} from "../../controller/thunk/createPlaylistThunk";
 import {setCoverImage, updateFormAttribute} from "../../controller/reducer/playlistSlice";
@@ -19,6 +19,7 @@ import {FiFile} from "react-icons/fi";
 
 export default function PlaylistForm() {
     const dispatch = useAppDispatch();
+    const {playlistForm} = useAppSelector(state => state.playlist)
 
     const handleSave = useCallback(() => {
         dispatch(createPlaylistThunk());
@@ -49,7 +50,7 @@ export default function PlaylistForm() {
                     <InputGroup>
                         <Input
                             onChange={e => handleChangeAttribute("name", e)}
-                            // value={userForm.companyName}
+                            value={playlistForm.name}
                         />
                     </InputGroup>
                 </FormControl>
@@ -59,12 +60,12 @@ export default function PlaylistForm() {
                         <Textarea
                             maxLength={2000}
                             onChange={e => handleChangeAttribute("description", e)}
-                            // value={userForm.description}
+                            value={playlistForm.description}
                         />
                     </InputGroup>
                 </FormControl>
                 <FormControl>
-                    <FormLabel>Cover</FormLabel>
+                    <FormLabel>Cover Image</FormLabel>
                     <InputGroup>
                         <InputLeftElement
                             pointerEvents="none"
@@ -78,7 +79,7 @@ export default function PlaylistForm() {
                     <FormLabel>Price</FormLabel>
                     <InputGroup>
                         <NumberInput min={0}>
-                            <NumberInputField  onChange={e => handleChangeAttribute("price", e)}/>
+                            <NumberInputField  onChange={e => handleChangeAttribute("price", e)} value={playlistForm.price}/>
                             <NumberInputStepper>
                                 <NumberIncrementStepper />
                                 <NumberDecrementStepper />
