@@ -2,7 +2,7 @@ import {Box} from "@chakra-ui/react";
 import {useAppDispatch, useAppSelector} from "../controller/hooks";
 import {useEffect} from "react";
 import {getAllPlaylistThunk} from "../controller/thunk/getAllPlaylistThunk";
-import PlaylistGrid from "../components/playlist/PlaylistGrid";
+import PlaylistsGrid from "../components/playlist/PlaylistsGrid";
 
 export default function Index() {
     const dispatch = useAppDispatch();
@@ -12,7 +12,7 @@ export default function Index() {
     }, [])
     return (
         <Box maxW={"full"}>
-            <PlaylistGrid playlists={latestPlaylists}/>
+            <PlaylistsGrid playlists={latestPlaylists}/>
         </Box>
     )
 }

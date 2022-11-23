@@ -3,7 +3,7 @@ import {useAppDispatch, useAppSelector} from "../../controller/hooks";
 import {useEffect} from "react";
 import {getCurrentArtistThunk} from "../../controller/thunk/getCurrentArtistThunk";
 import {getPlaylistByArtistThunk} from "../../controller/thunk/getPlaylistByArtistThunk";
-import PlaylistGrid from "../../components/playlist/PlaylistGrid";
+import PlaylistsGrid from "../../components/playlist/PlaylistGrid";
 import {useIPFS} from "../../hooks/useIPFS";
 
 
@@ -28,7 +28,7 @@ export default function Artist({id}) {
                     </Box>
                 </Flex>
             </Flex>
-            <PlaylistGrid playlists={myPlaylists}/>
+            <PlaylistsGrid playlists={myPlaylists}/>
     </Box>)
 }
 

@@ -2,7 +2,7 @@ import {Box, SimpleGrid} from "@chakra-ui/react";
 import PlaylistGridItem from "./PlaylistGridItem";
 import {useRouter} from "next/router";
 
-export default function PlaylistGrid({playlists}) {
+export default function PlaylistsGrid({playlists}) {
     const router = useRouter();
     return (
         <SimpleGrid columns={[2, 1, 2, 3,4]}>
