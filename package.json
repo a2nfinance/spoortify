@@ -39,7 +39,7 @@
     "webpack-cli": "^4.10.0"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "start": "next start",
     "build": "next build",
     "test-contract": "truffle test --compile-none",
