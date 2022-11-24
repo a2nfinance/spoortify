@@ -63,6 +63,17 @@ export const playlistSlice = createSlice({
         setPlaylistFormData: (state, action: PayloadAction<{playlistForm: PlaylistForm}> ) => {
             state.playlistForm = action.payload.playlistForm;
         },
+        resetPlaylistFormData: (state, action: PayloadAction ) => {
+            state.playlistForm = {
+                userAddress: "",
+                name: "",
+                description: "",
+                cover: "",
+                isPaid: false,
+                price: 0,
+                status: 1
+            };
+        },
     },
     extraReducers(builder: ActionReducerMapBuilder<any>) {
         builder.addCase(getCurrentPlaylistThunk.fulfilled, (state: PlaylistState, action) => {
@@ -94,5 +105,5 @@ export const playlistSlice = createSlice({
     }
 })
 
-export const { updateFormAttribute, setCoverImage, setOpenEditModal, setPlaylistFormData } = playlistSlice.actions;
+export const { updateFormAttribute, setCoverImage, setOpenEditModal, setPlaylistFormData, resetPlaylistFormData } = playlistSlice.actions;
 export default playlistSlice.reducer;

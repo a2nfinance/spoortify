@@ -2,6 +2,7 @@ export {};
 
 declare global {
     interface Window {
-        aleereum: any
+        aleereum: any,
+        location: any
     }
 }

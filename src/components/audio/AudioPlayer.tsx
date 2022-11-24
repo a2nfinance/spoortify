@@ -7,6 +7,7 @@ import {setAudioPlayerAttribute} from "../../controller/reducer/songSlice";
 export default function AudioPlayer() {
     const dispatch = useAppDispatch();
     const {songsByPlaylist, audioPlayer} = useAppSelector(state => state.song);
+    const {isPaidByUser} = useAppSelector(state => state.playlist);
     const {resolveLink} = useIPFS();
     const handleOnEnded = useCallback((audioPlayer) => {
         if (audioPlayer.current < audioPlayer.count - 1) {
@@ -25,7 +26,7 @@ export default function AudioPlayer() {
     return (
         (songsByPlaylist.length > 0) && <H5AudioPlayer
             autoPlay={audioPlayer.autoPlay}
-            src={audioPlayer.count ? resolveLink(songsByPlaylist[audioPlayer.current].songURL) : ""}
+            src={isPaidByUser ? (audioPlayer.count ? resolveLink(songsByPlaylist[audioPlayer.current].songURL) : "") : ""}
             onPlay={() => dispatch(setAudioPlayerAttribute({att: "autoPlay", value: true}))}
             // other props here
             onEnded={() => handleOnEnded(audioPlayer)}

@@ -22,20 +22,32 @@ import {depositThunk} from "../../controller/thunk/depositThunk";
 import {getBalanceThunk} from "../../controller/thunk/getBalanceThunk";
 import {withdrawThunk} from "../../controller/thunk/withdrawThunk";
 import {updateAttribute} from "../../controller/reducer/accountSlice";
+import {actionNames, processKeys, updateProcessStatus} from "../../controller/reducer/proccessesSlice";
 
 export default function Balance() {
     const dispatch = useAppDispatch();
     const {balance} = useAppSelector(state => state.account);
+    const {deposit, withdraw} = useAppSelector(state => state.process);
     const handleUpdate = useCallback((att: string, value: any) => {
         dispatch(updateAttribute({att: att, value: value}));
     }, [])
     useEffect(() => {
         dispatch(getBalanceThunk());
-    }, [])
+    }, [deposit.processing, withdraw.processing])
     const doDeposit = useCallback(() => {
+        dispatch(updateProcessStatus({
+            actionName: actionNames.deposit,
+            att: processKeys.processing,
+            value: true
+        }))
         dispatch(depositThunk());
     }, [])
     const doWithdraw = useCallback(() => {
+        dispatch(updateProcessStatus({
+            actionName: actionNames.withdraw,
+            att: processKeys.processing,
+            value: true
+        }))
         dispatch(withdrawThunk());
     }, [])
     return (
@@ -62,7 +74,7 @@ export default function Balance() {
                             </NumberInputStepper>
                         </NumberInput>
 
-                        <Button ml={2} size='md' onClick={() => doDeposit()}>
+                        <Button isLoading={deposit.processing} ml={2} size='md' onClick={() => doDeposit()}>
                             Deposit
                         </Button>
 
@@ -79,7 +91,7 @@ export default function Balance() {
                             </NumberInputStepper>
                         </NumberInput>
 
-                        <Button ml={2} size='md' onClick={() =>doWithdraw()}>
+                        <Button isLoading={withdraw.processing} ml={2} size='md' onClick={() =>doWithdraw()}>
                             Withdraw
                         </Button>
 

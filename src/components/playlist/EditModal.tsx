@@ -28,10 +28,12 @@ import {updatePlaylistThunk} from "../../controller/thunk/updatePlaylistThunk";
 import {setCoverImage, setOpenEditModal, updateFormAttribute} from "../../controller/reducer/playlistSlice";
 import {FiFile} from "react-icons/fi";
 import {useIPFS} from "../../hooks/useIPFS";
+import {actionNames, processKeys, updateProcessStatus} from "../../controller/reducer/proccessesSlice";
 
 export default function EditModal() {
     const {resolveLink} = useIPFS();
     const {openEditModal, playlistForm} = useAppSelector(state => state.playlist);
+    const {updatePlaylist} = useAppSelector(state => state.process)
     const dispatch = useAppDispatch();
 
     const handleOnClose = useCallback(() => {
@@ -39,7 +41,11 @@ export default function EditModal() {
     }, [])
 
     const handleSave = useCallback(() => {
-        // dispatch(updateProcessStatus({actionName: actionNames.updateProduct, att: processKeys.processing, value: true}));
+        dispatch(updateProcessStatus({
+            actionName: actionNames.updatePlaylist,
+            att: processKeys.processing,
+            value: true
+        }))
         dispatch(updatePlaylistThunk());
     }, [])
     const handleUpdatePlaylistAttribute = useCallback((att, e) => {
@@ -116,7 +122,7 @@ export default function EditModal() {
                 </ModalBody>
 
                 <ModalFooter justifyContent={"center"}>
-                    <Button colorScheme='purple' mr={3} onClick={() => handleSave()}>
+                    <Button colorScheme='purple' mr={3} isLoading={updatePlaylist.processing} onClick={() => handleSave()}>
                        Save
                     </Button>
                     <Button colorScheme='purple' mr={3} onClick={() => handleOnClose()}>

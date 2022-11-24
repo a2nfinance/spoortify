@@ -26,10 +26,11 @@ export default function MySongs() {
     const dispatch = useAppDispatch();
     const {resolveLink} = useIPFS();
     const {mySongs} = useAppSelector(state => state.song);
+    const {updateSong} = useAppSelector(state => state.process);
     useEffect(() => {
         dispatch(getMyPlaylistThunk());
         dispatch(getMySongsThunk());
-    }, [])
+    }, [updateSong])
 
     const handleEditClick = useCallback((song) => {
         dispatch(setCoverImage({coverImage: null}));

@@ -9,6 +9,7 @@ import {checkIsPaidThunk} from "../../controller/thunk/checkIsPaidThunk";
 
 export default function Album({id}) {
     const dispatch = useAppDispatch();
+    const { account } = useAppSelector(state => state.network)
     async function fetchData() {
         await dispatch(getCurrentPlaylistThunk(id));
         dispatch(getSongsByPlaylistThunk(id));
@@ -16,7 +17,7 @@ export default function Album({id}) {
     }
     useEffect(() => {
         fetchData()
-    }, [])
+    }, [id, account])
     return (<Box maxW={"full"}>
                 <Playlist />
                 <Box px={"20px"}>

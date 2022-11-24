@@ -17,12 +17,19 @@ import {createProfileThunk} from "../../controller/thunk/createProfileThunk";
 import {setCoverImage, updateFormAttribute} from "../../controller/reducer/artistSlice";
 import {FiFile} from "react-icons/fi";
 import {useIPFS} from "../../hooks/useIPFS";
+import {actionNames, processKeys, updateProcessStatus} from "../../controller/reducer/proccessesSlice";
 
 export default function ProfileForm() {
     const {resolveLink} = useIPFS();
     const dispatch = useAppDispatch();
-    const {artistForm} = useAppSelector(state => state.artist)
+    const {artistForm} = useAppSelector(state => state.artist);
+    const {updateProfile} = useAppSelector(state => state.process);
     const handleSave = useCallback(() => {
+        dispatch(updateProcessStatus({
+            actionName: actionNames.updateProfile,
+            att: processKeys.processing,
+            value: true
+        }))
         dispatch(createProfileThunk());
     }, [])
 
@@ -71,7 +78,7 @@ export default function ProfileForm() {
                 </FormControl>
             </VStack>
             <HStack gap={4} mt={10}>
-                <Button isLoading={false} colorScheme={"purple"} onClick={() => handleSave()}>Save</Button>
+                <Button isLoading={updateProfile.processing} colorScheme={"purple"} onClick={() => handleSave()}>Save</Button>
             </HStack>
         </Box>
     )

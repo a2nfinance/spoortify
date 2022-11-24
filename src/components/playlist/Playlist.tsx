@@ -28,6 +28,7 @@ export default function Playlist() {
     const {getShortAddress} = useAddress();
     const {currentPlaylist, isPaidByUser} = useAppSelector(state => state.playlist);
     const {songsByPlaylist, audioPlayer} = useAppSelector(state => state.song);
+    const {account} = useAppSelector(state => state.network);
     const dispatch = useAppDispatch();
     const {resolveLink} = useIPFS();
     const handleSongClick = useCallback((index) => {
@@ -63,7 +64,10 @@ export default function Playlist() {
                                 {currentPlaylist.isPaid ? `Price: ${currentPlaylist.price} CCN` : ""}
                             </Text>
                             {
-                                isPaidByUser ? <Badge colorScheme={"green"}>Paid</Badge> :  <Button rounded={0} mt={2} variant={"outline"} colorScheme={"green"} size={"xs"} onClick={() => handleBuyNow()}>Buy Now</Button>
+                                isPaidByUser ?
+                                    <Badge colorScheme={"green"}>{ account == currentPlaylist.userAddress ? `your playlist` : 'paid' }</Badge>
+                                    :
+                                    <Button rounded={0} mt={2} variant={"outline"} colorScheme={"green"} size={"xs"} onClick={() => handleBuyNow()}>Buy Now</Button>
                             }
 
                         </Box>

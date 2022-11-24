@@ -12,16 +12,23 @@ import {
 } from "@chakra-ui/react";
 import {useAppDispatch, useAppSelector} from "../../controller/hooks";
 import {useCallback, useEffect} from "react";
-import {setCoverImage, updateFormAttribute, setSong} from "../../controller/reducer/songSlice";
+import {setCoverImage, updateFormAttribute, setSong, resetSongFormData} from "../../controller/reducer/songSlice";
 import {FiFile} from "react-icons/fi";
 import {getMyPlaylistThunk} from "../../controller/thunk/getMyPlaylistThunk";
 import {createSongThunk} from "../../controller/thunk/createSongThunk";
+import {actionNames, processKeys, updateProcessStatus} from "../../controller/reducer/proccessesSlice";
 
 export default function SongForm() {
     const dispatch = useAppDispatch();
     const {myPlaylists} = useAppSelector(state => state.playlist);
     const {songForm} = useAppSelector(state => state.song);
+    const {createSong} = useAppSelector(state => state.process);
     const handleSave = useCallback(() => {
+        dispatch(updateProcessStatus({
+            actionName: actionNames.createSong,
+            att: processKeys.processing,
+            value: true
+        }))
         dispatch(createSongThunk());
     }, [])
 
@@ -37,6 +44,7 @@ export default function SongForm() {
     }, [])
 
     useEffect(() => {
+        dispatch(resetSongFormData())
         dispatch(getMyPlaylistThunk());
     }, []);
     return (
@@ -94,7 +102,7 @@ export default function SongForm() {
                 </FormControl>
             </VStack>
             <HStack gap={4} mt={10}>
-                <Button isLoading={false} colorScheme={"purple"} onClick={() => handleSave()}>Save</Button>
+                <Button isLoading={createSong.processing} colorScheme={"purple"} onClick={() => handleSave()}>Save</Button>
             </HStack>
         </Box>
     )

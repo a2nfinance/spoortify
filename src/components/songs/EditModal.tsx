@@ -28,11 +28,13 @@ import {setCoverImage, setOpenEditModal, setSong, updateFormAttribute} from "../
 import {FiFile} from "react-icons/fi";
 import {useIPFS} from "../../hooks/useIPFS";
 import {updateSongThunk} from "../../controller/thunk/updateSongThunk";
+import {actionNames, processKeys, updateProcessStatus} from "../../controller/reducer/proccessesSlice";
 
 export default function EditModal() {
     const {resolveLink} = useIPFS();
     const {openEditModal, songForm} = useAppSelector(state => state.song);
     const {myPlaylists} = useAppSelector(state => state.playlist);
+    const {updateSong} = useAppSelector(state => state.process);
     const dispatch = useAppDispatch();
 
     const handleOnClose = useCallback(() => {
@@ -40,7 +42,11 @@ export default function EditModal() {
     }, [])
 
     const handleSave = useCallback(() => {
-        // dispatch(updateProcessStatus({actionName: actionNames.updateProduct, att: processKeys.processing, value: true}));
+        dispatch(updateProcessStatus({
+            actionName: actionNames.updateSong,
+            att: processKeys.processing,
+            value: true
+        }))
         dispatch(updateSongThunk());
     }, [])
     const handleUpdateSongAttribute = useCallback((att, e) => {
@@ -123,7 +129,7 @@ export default function EditModal() {
                 </ModalBody>
 
                 <ModalFooter justifyContent={"center"}>
-                    <Button colorScheme='purple' mr={3} onClick={() => handleSave()}>
+                    <Button isLoading={updateSong.processing} colorScheme='purple' mr={3} onClick={() => handleSave()}>
                         Save
                     </Button>
                     <Button colorScheme='purple' mr={3} onClick={() => handleOnClose()}>

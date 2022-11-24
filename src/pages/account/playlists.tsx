@@ -26,9 +26,10 @@ export default function MyPlaylists() {
     const dispatch = useAppDispatch();
     const {resolveLink} = useIPFS();
     const {myPlaylists} = useAppSelector(state => state.playlist);
+    const {updatePlaylist} = useAppSelector(state => state.process);
     useEffect(() => {
         dispatch(getMyPlaylistThunk());
-    }, [])
+    }, [updatePlaylist.processing])
 
     const handleClickUpdate = useCallback((playlist: PlaylistForm) => {
         dispatch(setCoverImage({coverImage: null }));
@@ -65,14 +66,14 @@ export default function MyPlaylists() {
                        {
                            myPlaylists.map((playlist, index) => {
                                return  (
-                                   <Tr>
+                                   <Tr key={`tr-${playlist._id}`}>
                                        <Td><Image width={"50px"} src={resolveLink(playlist.cover)} /></Td>
                                        <Td maxW={"200px"}>{playlist.name}</Td>
                                        <Td maxW={"200px"}>{playlist.description}</Td>
                                        <Td isNumeric>{playlist.price}</Td>
                                        <Td>
                                            <HStack>
-                                               <Button>Listen</Button>
+                                               <Button onClick={() => router.push(`/playlist/${playlist._id}`)}>Listen</Button>
                                                <Button onClick={() => handleClickUpdate(playlist)}>Edit</Button>
                                            </HStack>
 

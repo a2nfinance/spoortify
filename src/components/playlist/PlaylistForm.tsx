@@ -12,16 +12,23 @@ import {
     Icon, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Switch
 } from "@chakra-ui/react";
 import {useAppDispatch, useAppSelector} from "../../controller/hooks";
-import {useCallback} from "react";
+import {useCallback, useEffect} from "react";
 import {createPlaylistThunk} from "../../controller/thunk/createPlaylistThunk";
-import {setCoverImage, updateFormAttribute} from "../../controller/reducer/playlistSlice";
+import {resetPlaylistFormData, setCoverImage, updateFormAttribute} from "../../controller/reducer/playlistSlice";
 import {FiFile} from "react-icons/fi";
+import {actionNames, processKeys, updateProcessStatus} from "../../controller/reducer/proccessesSlice";
 
 export default function PlaylistForm() {
     const dispatch = useAppDispatch();
     const {playlistForm} = useAppSelector(state => state.playlist)
+    const {createPlaylist} = useAppSelector(state => state.process)
 
     const handleSave = useCallback(() => {
+        dispatch(updateProcessStatus({
+            actionName: actionNames.createPlaylist,
+            att: processKeys.processing,
+            value: true
+        }))
         dispatch(createPlaylistThunk());
     }, [])
 
@@ -35,6 +42,9 @@ export default function PlaylistForm() {
 
     const handleChangeCover = useCallback((e: any) => {
         dispatch(setCoverImage({coverImage: e.target.files[0] }));
+    }, [])
+    useEffect(() => {
+        dispatch(resetPlaylistFormData())
     }, [])
     return (
         <Box as={'form'} mt={10}>
@@ -90,7 +100,7 @@ export default function PlaylistForm() {
                 </FormControl>
             </VStack>
             <HStack gap={4} mt={10}>
-                <Button isLoading={false} colorScheme={"purple"} onClick={() => handleSave()}>Save</Button>
+                <Button isLoading={createPlaylist.processing} colorScheme={"purple"} onClick={() => handleSave()}>Save</Button>
             </HStack>
         </Box>
     )

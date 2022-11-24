@@ -4,8 +4,7 @@ const colors = {
         // 900: '#1a365d',
         // 800: '#153e75',
         // 700: '#2a69ac',
-    },
-
+    }
 }
 
 const fonts = {
@@ -22,10 +21,14 @@ const letterSpacings = {
     wider: "0.05em",
     widest: "0.1em",
 };
-
+const config = {
+    initialColorMode: 'dark',
+    useSystemColorMode: false,
+}
 
 export const theme = extendTheme({
     colors,
     letterSpacings,
-    fonts
+    fonts,
+    config
 })
