@@ -25,7 +25,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                     price: price,
                     isPaid: isPaid,
                     cover: cover,
-                    status
+                    status: status
                 })
                 // Create new product
                 return res.status(200).send(updatedPlaylist);

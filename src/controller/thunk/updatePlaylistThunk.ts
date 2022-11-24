@@ -15,7 +15,7 @@ export const updatePlaylistThunk = createAsyncThunk("user/update-playlist", asyn
         // upload cover
         if (state.playlist.coverImage) {
             let response = await pinFileToIPFS(state.playlist.coverImage);
-            cover = response.data.hash;
+            cover = response.data.Hash;
         }
 
         // save DB
