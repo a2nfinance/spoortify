@@ -64,7 +64,7 @@ export default function EditModal() {
         <Modal isOpen={openEditModal} onClose={() => handleOnClose()}>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader textAlign={"center"}>Edit Playlist</ModalHeader>
+                <ModalHeader textAlign={"center"}>{playlistForm.name}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     <VStack spacing={3}>
@@ -106,7 +106,7 @@ export default function EditModal() {
                         </FormControl>
 
                         <FormControl>
-                            <FormLabel>Price</FormLabel>
+                            <FormLabel>Price (CCN)</FormLabel>
                             <InputGroup>
                                 <NumberInput min={0} value={playlistForm.price}>
                                     <NumberInputField  onChange={e => handleUpdatePlaylistAttribute("price", e)} />

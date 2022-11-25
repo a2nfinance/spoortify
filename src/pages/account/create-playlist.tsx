@@ -12,7 +12,7 @@ export default function CreatePlaylist() {
                     Create new playlist
                 </Heading>
                 <Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'md' }}>
-                    Your profile information will be shown to customer.
+                    If you enable the option "is paid playlist?", users need payment to listen to your playlist.
                 </Text>
             </Stack>
             <PlaylistForm />

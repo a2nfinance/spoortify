@@ -48,7 +48,7 @@ export default function MyPlaylists() {
                    <Button colorScheme={"purple"} onClick={() => router.push("/account/create-playlist")}>New Playlist</Button>
                </Heading>
                <Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'md' }}>
-                   Your profile information will be shown to customer.
+                   To change a playlist's information, click the button "edit".
                </Text>
            </Stack>
            <TableContainer>

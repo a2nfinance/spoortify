@@ -50,7 +50,7 @@ export default function MySongs() {
                     <Button colorScheme={"purple"} onClick={() => router.push("/account/create-song")}>New Song</Button>
                 </Heading>
                 <Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'md' }}>
-                    Your profile information will be shown to customer.
+                    To change a song's information, click the button "edit".
                 </Text>
             </Stack>
             <TableContainer>

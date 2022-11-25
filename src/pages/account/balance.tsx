@@ -58,9 +58,9 @@ export default function Balance() {
                     fontSize={{ base: '2xl', sm: '3xl', md: '4xl' }}>
                     My Balance:  {balance} CCN
                 </Heading>
-                {/*<Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'md' }}>*/}
-                {/*  */}
-                {/*</Text>*/}
+                <Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'md' }}>
+                    This is your balance in Spoortify smart contract. You can withdraw CCN to your ALE wallet.
+                </Text>
             </Stack>
             <HStack>
                 <FormControl>

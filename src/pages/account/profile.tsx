@@ -24,7 +24,7 @@ export default function Profile() {
                     My Profile
                 </Heading>
                 <Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'md' }}>
-                    Your profile information will be shown to customer.
+                    Your profile information will be shown to users.
                 </Text>
             </Stack>
             <ProfileForm />

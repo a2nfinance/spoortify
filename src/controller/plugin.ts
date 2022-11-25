@@ -17,3 +17,7 @@
 //         store.dispatch(IS_ALE(false));
 //     }
 // };
+
+export const plugin = {
+
+}

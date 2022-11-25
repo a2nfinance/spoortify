@@ -86,7 +86,7 @@ export default function PlaylistForm() {
                 </FormControl>
 
                 <FormControl>
-                    <FormLabel>Price</FormLabel>
+                    <FormLabel>Price (CCN)</FormLabel>
                     <InputGroup>
                         <NumberInput min={0}>
                             <NumberInputField  onChange={e => handleChangeAttribute("price", e)} value={playlistForm.price}/>

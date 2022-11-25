@@ -64,7 +64,7 @@ export default function EditModal() {
         <Modal isOpen={openEditModal} onClose={() => handleOnClose()}>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader textAlign={"center"}>Edit Playlist</ModalHeader>
+                <ModalHeader textAlign={"center"}>{songForm.name}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     <VStack spacing={3}>
