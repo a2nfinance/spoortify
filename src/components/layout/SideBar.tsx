@@ -181,25 +181,20 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
     const { colorMode, toggleColorMode } = useColorMode();
     const {account, isConnected, isAle} = useAppSelector(state => state.network)
     const dispatch = useAppDispatch();
-    // useEffect(() => {
-    //     window.onload = function () {
-    //         if (typeof window.aleereum !== "undefined") {
-    //             const provider = window["aleereum"];
-    //             if (provider.isAle) {
-    //
-    //                 dispatch(IS_ALE(true));
-    //                 dispatch(M_SET_DAPP_ACCOUNT(provider.account));
-    //                 dispatch(M_SET_DAPP_CONNECT(provider.isConnected));
-    //                 dispatch(M_SET_DAPP_NETWORK(provider.networkId));
-    //                 dispatch(IS_ALE_ENABLED(!provider.islocked));
-    //             } else {
-    //                 dispatch(HAS_ALE(false));
-    //             }
-    //         } else {
-    //             dispatch(IS_ALE(false));
-    //         }
-    //     };
-    // }, [])
+    useEffect(() => {
+
+        if (typeof window.aleereum !== "undefined") {
+            const provider = window["aleereum"];
+            if (provider.isAle) {
+                listenDataChange()
+            } else {
+                dispatch(HAS_ALE(false));
+            }
+        } else {
+            dispatch(IS_ALE(false));
+        }
+
+    }, [])
     function handleNetworkChange(networkID) {
         dispatch(M_SET_DAPP_NETWORK(networkID));
     }
@@ -225,7 +220,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
     function connect() {
         if (window["aleereum"]) {
             window["aleereum"].connect();
-            listenDataChange()
         }
     }
     return (

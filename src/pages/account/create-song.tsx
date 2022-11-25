@@ -1,5 +1,4 @@
 import {Container, Heading, Stack, Text} from "@chakra-ui/react";
-import PlaylistForm from "../../components/playlist/PlaylistForm";
 import SongForm from "../../components/songs/SongForm";
 
 export default function CreateSong() {
@@ -13,7 +12,7 @@ export default function CreateSong() {
                     Create new song
                 </Heading>
                 <Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'md' }}>
-                    Your profile information will be shown to customer.
+                    Please select a playlist for your song.
                 </Text>
             </Stack>
             <SongForm />
