@@ -5,6 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 import {Account} from "src/controller/type/Account";
 import {getBalanceThunk} from "../thunk/getBalanceThunk";
+import {getMyHistoryThunk} from "../thunk/getMyHistoryThunk";
 // import {connectEVMNetworkThunk} from "../thunk/connectEVMNetworkThunk";
 
 
@@ -17,7 +18,8 @@ const initialState: Account = {
     shortAddress: "",
     chainId: 0,
     withdrawAmount: 0,
-    depositAmount: 0
+    depositAmount: 0,
+    transactions: []
 }
 
 export const accountSlice = createSlice({
@@ -39,6 +41,12 @@ export const accountSlice = createSlice({
         builder.addCase(getBalanceThunk.fulfilled, (state: Account, action) => {
 
             state.balance = action.payload.toString();
+
+        })
+
+        builder.addCase(getMyHistoryThunk.fulfilled, (state: Account, action) => {
+
+            state.transactions = action.payload;
 
         })
 

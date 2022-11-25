@@ -20,7 +20,10 @@ export default function LatestPlaylists() {
     return (
         <Card backgroundColor={"transparent"} shadow={0} width={"full"}>
             <CardHeader pt={0}>
-                <Heading size='md'>Top Playlists</Heading>
+               <Flex justifyContent={"space-between"}>
+                   <Heading size='md'>Top Playlists</Heading>
+                   <Link onClick={() => router.push("/")} fontSize={"sm"} color={"gray.500"}>see more</Link>
+               </Flex>
             </CardHeader>
 
             <CardBody>

@@ -7,6 +7,7 @@ import {getMyProfileThunk} from "../../controller/thunk/getMyProfileThunk";
 
 export default function Profile() {
     const dispatch = useAppDispatch();
+    const {updateProfile} = useAppSelector(state => state.process)
     async function fetchData() {
         await dispatch(getMyProfileThunk());
         dispatch(setArtistFormByCurrentArtist({}));
@@ -14,7 +15,7 @@ export default function Profile() {
     }
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [updateProfile.processing])
     return (
         <Container maxW={"full"}>
             <Stack spacing={4}>

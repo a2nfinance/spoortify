@@ -124,7 +124,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
             h="full"
             {...rest}>
             <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-                <Image src={"/logo.png"} width={"150px"} />
+                <Image src={useColorModeValue("/logo.png", "/logo_2.png")} width={"180px"} />
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
             {LinkItems.map((link) => (
@@ -254,7 +254,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                     aria-label="open menu"
                     icon={<FiMenu />}
                 />
-                <Image display={{ base: 'flex', md: 'none' }} src={"/logo.png"} width={"120px"} />
+                <Image ml={1} display={{ base: 'flex', md: 'none' }} src={useColorModeValue("/logo.png", "/logo_2.png")} width={"120px"} />
             </Flex>
 
 

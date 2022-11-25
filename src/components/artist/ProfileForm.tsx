@@ -73,7 +73,7 @@ export default function ProfileForm() {
                        <Input size={"md"} type={"file"} onChange={e => handleChangeCover(e)} />
                     </InputGroup>
                     {
-                        artistForm.cover && <Image src={resolveLink(artistForm.cover)} mt={2} />
+                        artistForm.cover && <Image width={"150px"} src={resolveLink(artistForm.cover)} mt={2} />
                     }
                 </FormControl>
             </VStack>

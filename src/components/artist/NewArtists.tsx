@@ -1,5 +1,5 @@
 import {Card, CardBody, CardHeader} from "@chakra-ui/card";
-import {Avatar, Box, Flex, Heading, Icon, Image, Stack, StackDivider, Text} from "@chakra-ui/react";
+import {Avatar, Box, Flex, Heading, Icon, Image, Link, Stack, StackDivider, Text} from "@chakra-ui/react";
 import {useAppDispatch, useAppSelector} from "../../controller/hooks";
 import {useEffect} from "react";
 import {useIPFS} from "../../hooks/useIPFS";
@@ -20,7 +20,11 @@ export default function NewArtists() {
     return (
         <Card backgroundColor={"transparent"} shadow={0} width={"full"}>
             <CardHeader>
-                <Heading size='md'>Top Artists</Heading>
+
+                <Flex justifyContent={"space-between"}>
+                    <Heading size='md'>Top Artists</Heading>
+                    <Link onClick={() => router.push("/artists")} fontSize={"sm"} color={"gray.500"}>see more</Link>
+                </Flex>
             </CardHeader>
 
             <CardBody>

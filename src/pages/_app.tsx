@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }) {
                     PersistGate loading={null} persistor={persistor}>
                     <Box>
                         <Head>
-                            <title>Subscription & Recurring Payment</title>
+                            <title>Music Network on OORT</title>
                         </Head>
                         <Container maxW={"container.3xl"} p={0}>
                             <SidebarWithHeader>
