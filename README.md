@@ -18,7 +18,7 @@ Currently, users can buy playlists with token CCN only.
 - [x] View all playlists
 - [x] View all artists
 - [x] Update artists' profile
-- [x] Listen music
+- [x] Listen to music
 - [ ] Share playlists
 - [ ] Like songs & playlists
 - [ ] Check songs & playlists copyright
