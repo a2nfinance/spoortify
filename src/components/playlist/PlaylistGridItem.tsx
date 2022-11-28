@@ -7,7 +7,7 @@ import {
     useColorModeValue,
     Icon,
     chakra,
-    Tooltip,
+    Tooltip, AvatarBadge,
 } from '@chakra-ui/react';
 import { AiOutlinePlayCircle } from 'react-icons/ai';
 import {useIPFS} from "../../hooks/useIPFS";
@@ -32,12 +32,16 @@ export default function PlaylistGridItem({playlist, router}) {
                 {/*        bg="red.200"*/}
                 {/*    />*/}
                 {/*)}*/}
+                <Box position={"relative"} p={4}>
+                    <Image
+                        src={resolveLink(playlist.cover)}
+                        // alt={`Picture of ${playlist.cover}`}
+                    />
+                   <Badge colorScheme={"white"} position={"absolute"} top={4} right={4}>
+                       {playlist.isPaid ? "" : "Free"}
+                   </Badge>
+                </Box>
 
-                <Image
-                    src={resolveLink(playlist.cover)}
-                    // alt={`Picture of ${playlist.cover}`}
-                    p={4}
-                />
 
                 <Box px="4" py={3}>
                     {/*<Box display="flex" alignItems="baseline">*/}

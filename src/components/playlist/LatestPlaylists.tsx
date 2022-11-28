@@ -1,5 +1,17 @@
 import {Card, CardBody, CardHeader} from "@chakra-ui/card";
-import {Avatar, Box, Flex, Heading, Icon, Image, Link, Stack, StackDivider, Text} from "@chakra-ui/react";
+import {
+    Avatar,
+    Box,
+    Flex,
+    Heading,
+    Icon,
+    Image,
+    Link,
+    Stack,
+    StackDivider,
+    Text,
+    useBreakpointValue
+} from "@chakra-ui/react";
 import {useAppDispatch, useAppSelector} from "../../controller/hooks";
 import {useEffect} from "react";
 import {getLatestPlaylistsThunk} from "../../controller/thunk/getLatestPlaylistsThunk";
@@ -43,7 +55,7 @@ export default function LatestPlaylists() {
                                         <Image width={"60px"} src={resolveLink(playlist.cover)} />
 
                                         <Box>
-                                            <Heading size='sm'>{playlist.name}</Heading>
+                                            <Heading size='sm'  inlineSize={{base: "150px", lg: "250px"}} overflowWrap={"break-word"}>{playlist.name}</Heading>
                                             <Text fontSize={"xs"} color={"gray.500"} letterSpacing={"1px"}>{getShortAddress(playlist.userAddress)}</Text>
                                         </Box>
                                     </Flex>
