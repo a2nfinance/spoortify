@@ -1,8 +1,8 @@
 
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {withdraw} from "../core/contract";
+import {getBalance, withdraw} from "../core/contract";
 import {AppState} from "../store";
-import {successToastContent} from "../core/toastContents";
+import {errorToastContent, successToastContent} from "../core/toastContents";
 
 // @ts-ignore
 export const withdrawThunk = createAsyncThunk("user/withdraw", async ({}, {getState}) => {
@@ -10,6 +10,18 @@ export const withdrawThunk = createAsyncThunk("user/withdraw", async ({}, {getSt
     let state: AppState = getState();
     if (state.account.withdrawAmount <= 0) {
         return {success: false};
+    }
+
+    let balance = await getBalance(state.network.account);
+    if (balance <= 0) {
+        errorToastContent(
+            `Withdraw fail`,
+            `Your balance is not enough, please deposit.`,
+        )
+
+        return {
+            success: false
+        }
     }
     let response = await withdraw(state.account.withdrawAmount, state.network.account);
     if (response.success) {

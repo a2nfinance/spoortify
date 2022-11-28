@@ -1,14 +1,25 @@
 
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {buy} from "../core/contract";
+import {buy, getBalance} from "../core/contract";
 import {AppState} from "../store";
-import {successToastContent} from "../core/toastContents";
+import {errorToastContent, successToastContent} from "../core/toastContents";
 
 // @ts-ignore
 export const buyThunk = createAsyncThunk("user/buy", async ({}, {getState}) => {
     // @ts-ignore
     let state: AppState = getState();
     let currentPlaylist = state.playlist.currentPlaylist;
+    let balance = await getBalance(state.network.account);
+    if (balance <= 0) {
+        errorToastContent(
+            `Buy fail`,
+            `Your balance is not enough, please deposit.`,
+        )
+
+        return {
+            success: false
+        }
+    }
     let response = await buy(currentPlaylist.userAddress, currentPlaylist._id, currentPlaylist.price, state.network.account);
     if (response.success) {
         fetch(`/api/db/history/save`, {
@@ -30,10 +41,10 @@ export const buyThunk = createAsyncThunk("user/buy", async ({}, {getState}) => {
             `Transaction: ${response.msg}`,
         )
     } else {
-        successToastContent(
+        errorToastContent(
             `Buy fail`,
             ``,
         )
     }
-    return response;
+
 })

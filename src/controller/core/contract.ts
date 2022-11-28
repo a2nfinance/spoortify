@@ -63,12 +63,6 @@ export const buy = async (artist: string, playlistId: string, amount: number, ac
         from: account,
         amount: new Big('0').toString()
     });
-    if (response.success) {
-        console.log('transaction success: ', response);
-    } else {
-        console.log('transaction failed: ', response);
-    }
-
     return response;
 }
 
