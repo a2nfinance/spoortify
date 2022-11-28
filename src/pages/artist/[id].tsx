@@ -16,7 +16,7 @@ export default function Artist({id}) {
     useEffect(() => {
         dispatch(getCurrentArtistThunk(id))
         dispatch(getPlaylistByArtistThunk(id));
-    }, [])
+    }, [id])
     return (
         <Box maxW={"full"}>
             <VStack gap='4' alignItems={"flex-start"}>

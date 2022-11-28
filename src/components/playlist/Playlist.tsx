@@ -64,10 +64,11 @@ export default function Playlist() {
                                 {currentPlaylist.isPaid ? `Price: ${currentPlaylist.price} CCN` : ""}
                             </Text>
                             {
-                                isPaidByUser ?
+                                (currentPlaylist.isPaid) ? ( isPaidByUser ?
                                     <Badge colorScheme={"green"}>{ account == currentPlaylist.userAddress ? `your playlist` : 'paid' }</Badge>
                                     :
-                                    <Button rounded={0} mt={2} variant={"outline"} colorScheme={"green"} size={"xs"} onClick={() => handleBuyNow()}>Buy Now</Button>
+                                    <Button rounded={0} mt={2} variant={"outline"} colorScheme={"green"} size={"xs"} onClick={() => handleBuyNow()}>Buy Now</Button>)
+                                    : <Badge colorScheme={"green"}>{ account == currentPlaylist.userAddress ? `your playlist` : 'free' }</Badge>
                             }
 
                         </Box>
