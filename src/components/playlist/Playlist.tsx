@@ -1,18 +1,14 @@
 import {Card, CardBody, CardHeader} from "@chakra-ui/card";
 import {
-    Avatar, Badge,
+    Badge,
     Box, Button,
     Flex,
-    Heading, Icon,
-    IconButton, Image, Link,
+    Heading, Image, Link,
     List,
-    ListIcon,
-    ListItem, OrderedList,
-    Stack,
-    StackDivider,
+    ListItem,
+
     Text, useBreakpointValue
 } from "@chakra-ui/react";
-import {MdCheckCircle} from "react-icons/md";
 import {useAppDispatch, useAppSelector} from "../../controller/hooks";
 import {useIPFS} from "../../hooks/useIPFS";
 import {useCallback, useState} from "react";
@@ -20,7 +16,7 @@ import {setAudioPlayerAttribute} from "../../controller/reducer/songSlice";
 import {buyThunk} from "../../controller/thunk/buyThunk";
 import {useAddress} from "../../hooks/useAddress";
 import {useRouter} from "next/router";
-import {AiOutlinePlayCircle} from "react-icons/ai";
+import {actionNames, processKeys, updateProcessStatus} from "../../controller/reducer/proccessesSlice";
 
 
 export default function Playlist() {
@@ -36,6 +32,11 @@ export default function Playlist() {
         dispatch(setAudioPlayerAttribute({att: "autoPlay", value: true}));
     }, [])
     const handleBuyNow = useCallback(() => {
+        dispatch(updateProcessStatus({
+            actionName: actionNames.buy,
+            att: processKeys.processing,
+            value: true
+        }))
         dispatch(buyThunk())
     }, [])
     return (

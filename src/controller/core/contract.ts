@@ -35,7 +35,7 @@ export const getBalance = async (account: string) => {
         from: account,
     });
     if (response) {
-        return ethers.utils.formatUnits(response, 18);
+        return parseFloat(ethers.utils.formatUnits(response, 18));
     }
     return 0;
 }

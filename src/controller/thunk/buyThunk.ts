@@ -10,7 +10,7 @@ export const buyThunk = createAsyncThunk("user/buy", async ({}, {getState}) => {
     let state: AppState = getState();
     let currentPlaylist = state.playlist.currentPlaylist;
     let balance = await getBalance(state.network.account);
-    if (balance <= 0) {
+    if (balance < currentPlaylist.price) {
         errorToastContent(
             `Buy fail`,
             `Your balance is not enough, please deposit.`,
@@ -46,5 +46,7 @@ export const buyThunk = createAsyncThunk("user/buy", async ({}, {getState}) => {
             ``,
         )
     }
+
+    return response;
 
 })

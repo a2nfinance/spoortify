@@ -28,7 +28,7 @@ import {getMyHistoryThunk} from "../../controller/thunk/getMyHistoryThunk";
 
 export default function Balance() {
     const dispatch = useAppDispatch();
-    const {balance} = useAppSelector(state => state.account);
+    const {balance, depositAmount, withdrawAmount} = useAppSelector(state => state.account);
     const {account} = useAppSelector(state => state.network);
     const {deposit, withdraw} = useAppSelector(state => state.process);
     const handleUpdate = useCallback((att: string, value: any) => {
@@ -71,7 +71,7 @@ export default function Balance() {
                     <FormLabel>Deposit Amount</FormLabel>
                     <InputGroup>
                         <NumberInput min={0}>
-                            <NumberInputField onChange={e => handleUpdate("depositAmount", e.target.value)}/>
+                            <NumberInputField value={depositAmount} onChange={e => handleUpdate("depositAmount", e.target.value)}/>
                             <NumberInputStepper>
                                 <NumberIncrementStepper />
                                 <NumberDecrementStepper />
@@ -88,7 +88,7 @@ export default function Balance() {
                     <FormLabel>Withdraw Amount</FormLabel>
                     <InputGroup>
                         <NumberInput min={0} >
-                            <NumberInputField onChange={e => handleUpdate("withdrawAmount", e.target.value)}/>
+                            <NumberInputField value={withdrawAmount} onChange={e => handleUpdate("withdrawAmount", e.target.value)}/>
                             <NumberInputStepper>
                                 <NumberIncrementStepper />
                                 <NumberDecrementStepper />

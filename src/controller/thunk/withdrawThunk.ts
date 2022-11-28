@@ -13,7 +13,7 @@ export const withdrawThunk = createAsyncThunk("user/withdraw", async ({}, {getSt
     }
 
     let balance = await getBalance(state.network.account);
-    if (balance <= 0) {
+    if (balance <= state.account.withdrawAmount) {
         errorToastContent(
             `Withdraw fail`,
             `Your balance is not enough, please deposit.`,

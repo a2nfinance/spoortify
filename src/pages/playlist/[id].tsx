@@ -1,4 +1,4 @@
-import {Box, Container, HStack, useBreakpointValue, VStack} from "@chakra-ui/react";
+import {Box} from "@chakra-ui/react";
 import {useAppDispatch, useAppSelector} from "../../controller/hooks";
 import {useEffect} from "react";
 import {getSongsByPlaylistThunk} from "../../controller/thunk/getSongsByPlaylistThunk";
@@ -17,6 +17,7 @@ export default function Album({id}) {
         dispatch(checkIsPaidThunk());
     }
     useEffect(() => {
+        console.log("Refresh");
         fetchData()
     }, [id, account, buy.processing])
     return (<Box maxW={"full"}>
