@@ -17,7 +17,8 @@ type PlaylistState = {
     myPlaylists: PlaylistForm[],
     latestPlaylists: PlaylistForm[],
     currentPlaylist: PlaylistForm,
-    isPaidByUser: boolean
+    isPaidByUser: boolean,
+    allPlaylists: PlaylistForm[]
 }
 
 
@@ -35,6 +36,7 @@ const initialState: PlaylistState = {
     },
     myPlaylists: [],
     latestPlaylists: [],
+    allPlaylists: [],
     currentPlaylist: {
         userAddress: "",
         name: "",
@@ -93,7 +95,7 @@ export const playlistSlice = createSlice({
         })
         builder.addCase(getAllPlaylistThunk.fulfilled, (state: PlaylistState, action) => {
 
-            state.latestPlaylists = action.payload;
+            state.allPlaylists = action.payload;
 
         })
 

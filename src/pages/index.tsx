@@ -6,13 +6,13 @@ import PlaylistsGrid from "../components/playlist/PlaylistsGrid";
 
 export default function Index() {
     const dispatch = useAppDispatch();
-    const {latestPlaylists} = useAppSelector(state => state.playlist)
+    const {allPlaylists} = useAppSelector(state => state.playlist)
     useEffect(() => {
         dispatch(getAllPlaylistThunk());
     }, [])
     return (
         <Box maxW={"full"}>
-            <PlaylistsGrid playlists={latestPlaylists}/>
+            <PlaylistsGrid playlists={allPlaylists}/>
         </Box>
     )
 }
